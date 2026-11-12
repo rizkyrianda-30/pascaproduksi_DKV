@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1b1b2f">
+<title>Pasca Produksi Desain Grafis | XI DKV</title>
+<style>
+:root{
+  --ink:#1b1b2f; --paper:#fff8ee; --card:#ffffff;
+  --coral:#ff5a36; --blue:#2a5bff; --yellow:#ffc933; --green:#1fa971; --purple:#7a4dff; --pink:#ff7eb6;
+  --muted:#5b5b73; --line:#1b1b2f;
+  --sh:4px 4px 0 var(--ink);
+  --r:16px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;background:#e9e1d1;background-image:radial-gradient(#d6ccb6 1.2px,transparent 1.2px);background-size:18px 18px;
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink);line-height:1.55;font-size:15.5px}
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--paper);position:relative;padding-bottom:92px;
+  border-left:2px solid var(--ink);border-right:2px solid var(--ink)}
+h1,h2,h3{margin:0;line-height:1.2;letter-spacing:-.01em}
+p{margin:0 0 10px}
+button{font:inherit;color:inherit;cursor:pointer}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px}
+.top .logo{width:34px;height:34px;border-radius:10px;background:var(--yellow);display:grid;place-items:center;font-size:18px;border:2px solid #fff;flex:none}
+.top .t1{font-size:11px;opacity:.75;letter-spacing:.06em;text-transform:uppercase}
+.top .t2{font-weight:800;font-size:15px}
+
+/* views */
+.view{display:none;padding:16px 16px 8px;animation:fade .35s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* stepper */
+.stepper{display:flex;gap:6px;margin:0 0 14px;overflow-x:auto;padding-bottom:4px}
+.stepper button{flex:1 0 auto;border:2px solid var(--ink);background:#fff;border-radius:999px;padding:6px 12px;font-weight:700;font-size:13px;white-space:nowrap}
+.stepper button.on{background:var(--ink);color:#fff}
+.stepper button.done:not(.on){background:#d9f5e8}
+
+/* cards */
+.card{background:var(--card);border:2px solid var(--ink);border-radius:var(--r);box-shadow:var(--sh);padding:16px;margin-bottom:16px}
+.card h3{font-size:17px;margin-bottom:8px}
+.tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border:2px solid var(--ink);border-radius:999px;padding:2px 10px;background:var(--yellow);margin-bottom:10px}
+.pg-title{font-size:26px;font-weight:900;margin:2px 0 4px}
+.pg-sub{color:var(--muted);margin-bottom:16px}
+.hl{background:linear-gradient(transparent 55%,#ffd96a 55%);font-weight:700}
+.bigdef{background:var(--blue);color:#fff;border-color:var(--ink)}
+.bigdef .tag{background:#fff;color:var(--ink)}
+.bigdef p{font-size:16.5px;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--ink);border-radius:999px;padding:4px 12px;font-weight:700;font-size:13px;background:#fff}
+.c1{background:#ffe3d9}.c2{background:#dfe7ff}.c3{background:#fff0bf}.c4{background:#d9f5e8}.c5{background:#eadfff}
+.tip{border:2px dashed var(--ink);border-radius:14px;padding:12px 14px;background:#fff3c4;margin-bottom:16px}
+.tip b{display:block;margin-bottom:2px}
+
+/* flow */
+.flow{display:flex;align-items:stretch;gap:6px;margin:10px 0 4px}
+.flow div{flex:1;border:2px solid var(--ink);border-radius:12px;padding:8px 4px;text-align:center;font-weight:800;font-size:12.5px;background:#fff}
+.flow div small{display:block;font-weight:500;font-size:11px;color:var(--muted)}
+.flow div.me{background:var(--coral);color:#fff;transform:translateY(-4px);box-shadow:3px 3px 0 var(--ink)}
+.flow div.me small{color:#fff}
+.flow i{align-self:center;font-style:normal;font-weight:900}
+
+/* list items */
+.goal{display:flex;gap:12px;align-items:flex-start;padding:12px;border:2px solid var(--ink);border-radius:14px;margin-bottom:10px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+.goal .n{flex:none;width:36px;height:36px;border-radius:10px;border:2px solid var(--ink);display:grid;place-items:center;font-weight:900;font-size:17px}
+.goal b{display:block}
+.goal span{color:var(--muted);font-size:14px}
+
+/* steps accordion */
+.step{border:2px solid var(--ink);border-radius:14px;background:#fff;margin-bottom:10px;overflow:hidden;box-shadow:3px 3px 0 var(--ink)}
+.step>button{width:100%;display:flex;align-items:center;gap:12px;background:none;border:0;padding:12px;text-align:left}
+.step .num{flex:none;width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-weight:900;background:var(--yellow)}
+.step .hd{flex:1}
+.step .hd b{display:block;font-size:15.5px}
+.step .hd small{color:var(--muted);font-size:13px}
+.step .arr{transition:transform .25s;font-weight:900}
+.step.open .arr{transform:rotate(180deg)}
+.step .body{display:none;padding:0 14px 14px 14px;border-top:2px dashed var(--ink);padding-top:12px;font-size:14.5px}
+.step.open .body{display:block}
+.step .body ul{margin:6px 0 10px 18px;padding:0}
+.out{display:inline-block;background:var(--green);color:#fff;border:2px solid var(--ink);border-radius:10px;padding:3px 10px;font-weight:700;font-size:13px}
+.linkbtn{background:none;border:0;font-weight:800;text-decoration:underline;padding:0;margin-bottom:10px;color:var(--blue)}
+
+/* swot */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.sw{border:2px solid var(--ink);border-radius:14px;padding:12px;box-shadow:3px 3px 0 var(--ink);background:#fff}
+.sw h4{margin:0 0 6px;font-size:14px;display:flex;align-items:center;gap:8px}
+.sw h4 span{width:28px;height:28px;border-radius:8px;border:2px solid var(--ink);display:grid;place-items:center;font-weight:900}
+.sw ul{margin:0;padding-left:16px;font-size:13px}
+.sw.S{background:#d9f5e8}.sw.W{background:#ffe3d9}.sw.O{background:#dfe7ff}.sw.T{background:#fff0bf}
+.sw.S h4 span{background:var(--green);color:#fff}.sw.W h4 span{background:var(--coral);color:#fff}.sw.O h4 span{background:var(--blue);color:#fff}.sw.T h4 span{background:var(--yellow)}
+.axis{display:flex;gap:8px;margin-bottom:10px;font-size:12px;font-weight:800;text-align:center}
+.axis div{flex:1;border:2px solid var(--ink);border-radius:999px;padding:3px}
+table.mx{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;border:2px solid var(--ink);border-radius:12px;overflow:hidden}
+table.mx th,table.mx td{border-bottom:2px solid var(--ink);border-right:2px solid var(--ink);padding:8px;vertical-align:top;text-align:left}
+table.mx tr>*:last-child{border-right:0}table.mx tr:last-child>*{border-bottom:0}
+table.mx th{background:var(--ink);color:#fff}
+table.mx td:first-child{font-weight:800;background:#fff3c4;white-space:nowrap}
+ol.how{margin:0;padding-left:20px}
+ol.how li{margin-bottom:6px}
+
+/* pager */
+.pager{display:flex;gap:10px;margin:6px 0 20px}
+.btn{border:2px solid var(--ink);background:#fff;border-radius:14px;padding:12px 16px;font-weight:800;box-shadow:var(--sh);transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.btn.main{background:var(--coral);color:#fff}
+.btn.alt{background:var(--yellow)}
+.btn.block{width:100%}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.pager .btn{flex:1}
+
+/* home */
+.hero{background:var(--coral);color:#fff;border:2px solid var(--ink);border-radius:22px;box-shadow:var(--sh);padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);opacity:.9}
+.hero:before{content:"";position:absolute;right:50px;bottom:-34px;width:80px;height:80px;background:var(--blue);border:2px solid var(--ink);transform:rotate(20deg)}
+.hero>*{position:relative;z-index:1}
+.hero .tag{background:#fff;color:var(--ink)}
+.hero h1{font-size:30px;font-weight:900;max-width:75%}
+.hero p{margin:8px 0 0;max-width:80%;font-weight:600}
+.idcard{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14px}
+.idcard dt{color:var(--muted);font-weight:600}
+.idcard dd{margin:0;font-weight:800}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.mbtn{border:2px solid var(--ink);border-radius:16px;box-shadow:var(--sh);padding:14px;text-align:left;background:#fff;display:flex;flex-direction:column;gap:4px;transition:transform .1s,box-shadow .1s}
+.mbtn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.mbtn .ic{font-size:26px}
+.mbtn b{font-size:15px}
+.mbtn small{color:#333;font-size:12.5px;line-height:1.35}
+.mbtn.wide{grid-column:span 2;flex-direction:row;align-items:center;gap:12px}
+.prog{height:14px;border:2px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden;margin:6px 0}
+.prog i{display:block;height:100%;background:var(--green);width:0;transition:width .4s}
+
+/* flashcard */
+.fc-wrap{perspective:1000px;margin-bottom:14px}
+.fc{position:relative;height:260px;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}
+.fc.flip{transform:rotateY(180deg)}
+.fc .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid var(--ink);border-radius:22px;box-shadow:var(--sh);padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.fc .front{background:var(--yellow)}
+.fc .back{background:var(--blue);color:#fff;transform:rotateY(180deg)}
+.fc .face small{position:absolute;top:14px;left:18px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:11px;opacity:.8}
+.fc .face .q{font-size:20px;font-weight:800}
+.fc .face .a{font-size:17px;font-weight:600}
+.fc .hint{position:absolute;bottom:12px;font-size:12px;opacity:.7}
+.fc-ctl{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+.fc-ctl .btn{flex:1;padding:10px}
+.fc-count{font-weight:800;min-width:60px;text-align:center}
+
+/* quiz */
+.qtop{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:13px;margin-bottom:6px}
+.qhead{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.badge{border:2px solid var(--ink);border-radius:999px;padding:2px 10px;font-size:12px;font-weight:800}
+.qprompt{font-size:16.5px;font-weight:700;margin-bottom:12px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:10px;text-align:left;align-items:flex-start;border:2px solid var(--ink);background:#fff;border-radius:14px;padding:10px 12px}
+.opt .k{flex:none;width:26px;height:26px;border-radius:8px;border:2px solid var(--ink);display:grid;place-items:center;font-weight:900;font-size:13px;background:var(--paper)}
+.opt.sel{background:#dfe7ff;box-shadow:3px 3px 0 var(--ink)}
+.ok{background:#bff0d6!important}
+.bad{background:#ffc9bd!important}
+.tfrow{border:2px solid var(--ink);border-radius:14px;padding:10px 12px;margin-bottom:10px;background:#fff}
+.tfrow p{margin:0 0 8px;font-weight:600}
+.tfbtns{display:flex;gap:8px}
+.tfbtns button{flex:1;border:2px solid var(--ink);border-radius:10px;padding:6px;font-weight:800;background:var(--paper)}
+.tfbtns button.sel{background:var(--blue);color:#fff}
+.why{display:none;margin-top:8px;font-size:13.5px;color:#333}
+.checked .why{display:block}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:grid;gap:8px;align-content:start}
+.mi{position:relative;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:9px 10px 9px 10px;text-align:left;font-size:13.5px;font-weight:600;line-height:1.35}
+.mi.cur{outline:3px solid var(--coral);outline-offset:1px}
+.mi .bd{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px;margin-right:6px}
+.mi.p0{background:#ffe3d9}.mi.p1{background:#dfe7ff}.mi.p2{background:#fff0bf}.mi.p3{background:#d9f5e8}
+.mi.ok{background:#bff0d6}.mi.bad{background:#ffc9bd}
+.sentence{font-size:16px;line-height:2.3;margin-bottom:12px}
+.blank{display:inline-block;min-width:92px;border:2px dashed var(--ink);border-radius:10px;padding:0 8px;background:#fff;font-weight:800;text-align:center;vertical-align:middle;line-height:1.7}
+.blank.f{border-style:solid;background:#fff0bf}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.wd{border:2px solid var(--ink);border-radius:999px;padding:5px 14px;font-weight:700;background:var(--purple);color:#fff;box-shadow:2px 2px 0 var(--ink)}
+.wd.used{opacity:.3;pointer-events:none}
+.scn{border:2px solid var(--ink);border-radius:14px;padding:10px 12px;margin-bottom:10px;background:#fff}
+.scn p{margin:0 0 8px;font-size:14.5px}
+select{width:100%;font:inherit;font-weight:600;padding:9px 10px;border:2px solid var(--ink);border-radius:10px;background:var(--paper);color:var(--ink)}
+select.ok{background:#bff0d6}select.bad{background:#ffc9bd}
+.lbl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin:0 0 6px;color:var(--muted)}
+.seq{list-style:none;margin:0 0 12px;padding:8px;border:2px dashed var(--ink);border-radius:14px;min-height:58px;display:grid;gap:6px;background:#fff}
+.seq li button,.pool button{width:100%;text-align:left;border:2px solid var(--ink);border-radius:10px;padding:7px 10px;font-weight:700;font-size:14px;background:#fff3c4;display:flex;gap:8px;align-items:center}
+.seq li button b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;flex:none}
+.seq li button.ok{background:#bff0d6}.seq li button.bad{background:#ffc9bd}
+.pool{display:flex;flex-wrap:wrap;gap:8px}
+.pool button{width:auto;background:#dfe7ff}
+.empty{color:var(--muted);font-size:13.5px;padding:6px}
+.swrow{border:2px solid var(--ink);border-radius:14px;padding:10px 12px;margin-bottom:10px;background:#fff}
+.swrow p{margin:0 0 8px;font-size:14.5px;font-weight:600}
+.swbtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.swbtns button{border:2px solid var(--ink);border-radius:10px;padding:6px 0;font-weight:900;background:var(--paper)}
+.swbtns button small{display:block;font-weight:600;font-size:10px}
+.swbtns button.sel.S{background:var(--green);color:#fff}.swbtns button.sel.W{background:var(--coral);color:#fff}
+.swbtns button.sel.O{background:var(--blue);color:#fff}.swbtns button.sel.T{background:var(--yellow)}
+.swrow.ok{background:#bff0d6}.swrow.bad{background:#ffc9bd}
+.locked .inter,.locked select{pointer-events:none}
+.fb{display:none;border:2px solid var(--ink);border-radius:14px;padding:12px 14px;margin:14px 0;font-size:14.5px}
+.fb.show{display:block;animation:fade .3s}
+.fb b{display:block;margin-bottom:4px;font-size:15.5px}
+.fb.good{background:#d9f5e8}.fb.mid{background:#fff0bf}.fb.low{background:#ffe3d9}
+.qbar{margin-bottom:12px}
+.result{text-align:center}
+.score{font-size:64px;font-weight:900;line-height:1;margin:8px 0}
+.bl{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;margin-bottom:8px;text-align:left;font-size:13.5px;font-weight:700}
+.bl .prog{margin:0;height:12px}
+
+/* bottom nav */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:2px solid var(--ink);border-left:2px solid var(--ink);border-right:2px solid var(--ink);display:grid;grid-template-columns:repeat(4,1fr);z-index:30;padding-bottom:env(safe-area-inset-bottom)}
+.nav button{background:none;border:0;padding:8px 2px 9px;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:11.5px;font-weight:800;color:var(--muted)}
+.nav button span{font-size:21px;filter:grayscale(1);transition:transform .2s}
+.nav button.on{color:var(--ink);background:var(--yellow)}
+.nav button.on span{filter:none;transform:translateY(-2px) scale(1.12)}
+.foot{text-align:center;font-size:12px;color:var(--muted);padding:6px 16px 20px}
+
+/* ====== tambahan halaman Produksi ====== */
+.mi.p4{background:#ffd6ea}
+.swbtns button{font-size:12.5px}
+.swbtns button.sel.c0{background:var(--green);color:#fff}
+.swbtns button.sel.c1{background:var(--blue);color:#fff}
+.swbtns button.sel.c2{background:var(--purple);color:#fff}
+.swbtns button.sel.c3{background:var(--yellow);color:var(--ink)}
+.toggleAll{background:none;border:0;font-weight:800;text-decoration:underline;padding:0;margin-bottom:10px;color:var(--blue)}
+
+.rtabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px}
+.rtabs button{flex:none;border:2px solid var(--ink);border-radius:10px 10px 0 0;background:#fff;padding:6px 12px;font-weight:800;font-size:13px}
+.rtabs button.on{background:var(--coral);color:#fff}
+.rg{border:2px solid var(--ink);border-radius:12px;padding:8px 10px;margin-bottom:8px;background:#fff}
+.rg b{display:block;font-size:13.5px}
+.rg span{font-size:13.5px;color:var(--muted)}
+
+.seg{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.seg button{flex:1 0 auto;border:2px solid var(--ink);border-radius:10px;background:#fff;padding:7px 10px;font-weight:800;font-size:13px}
+.seg button.on{background:var(--ink);color:#fff}
+
+.sc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.sc div{border:2px solid var(--ink);border-radius:10px;padding:6px 9px;font-size:13px;background:#fff}
+.sc div b{display:block;color:var(--coral);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+
+/* poster untuk cari kesalahan */
+.poster{border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--sh);margin-bottom:12px}
+.poster .pa{display:flex;gap:10px;align-items:center;width:100%;border:0;border-bottom:2px dashed rgba(27,27,47,.3);padding:10px 12px;text-align:left;background:none;font:inherit;color:var(--ink)}
+.poster .pa:last-child{border-bottom:0}
+.poster .pa .no{flex:none;width:22px;height:22px;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);display:grid;place-items:center;font-size:11px;font-weight:900}
+.poster .pa.flaw{box-shadow:inset 0 0 0 4px var(--green)}
+.poster .pa.good{box-shadow:inset 0 0 0 4px var(--blue)}
+.p-title{background:#fff4b8}
+.p-title .t{color:#f0e27a;font-size:24px;font-weight:900;line-height:1.1}
+.p-ill{background:linear-gradient(135deg,#ffd6ea,#dfe7ff);justify-content:center;font-size:34px}
+.p-logo .lg{filter:blur(1.6px);font-weight:800;font-size:15px}
+.p-date .d{font-weight:800;font-size:14px}
+.p-desc .ds{font-size:13px;line-height:1.5}
+.p-contact .ct{font-size:13px;line-height:1.5;flex:1}
+
+/* checklist */
+.ck{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;border:2px solid var(--ink);border-radius:12px;padding:9px 12px;background:#fff;margin-bottom:8px;font-weight:600;font-size:14px}
+.ck i{font-style:normal;font-size:18px;line-height:1.2}
+.ck.on{background:#bff0d6}
+
+/* ====== tambahan halaman Pasca Produksi ====== */
+.swbtns.n3{grid-template-columns:repeat(3,1fr)}
+.inp{width:100%;font:inherit;font-weight:600;padding:9px 10px;border:2px solid var(--ink);border-radius:10px;background:var(--paper);color:var(--ink);margin-bottom:10px}
+.fnout{font-family:"Courier New",monospace;background:var(--ink);color:#fff3c4;border-radius:12px;padding:12px;overflow-wrap:anywhere;font-size:14px;font-weight:700;margin:6px 0 10px}
+.rng{width:100%;accent-color:var(--coral);margin:4px 0 10px}
+.rowlbl{display:flex;justify-content:space-between;font-weight:800;font-size:13.5px}
+.big{font-size:42px;font-weight:900;line-height:1;margin:6px 0}
+.ssc-s{background:#ffe3d9}.ssc-t{background:#dfe7ff}.ssc-c{background:#d9f5e8}
+.kasus{display:grid;gap:6px;font-size:13.5px;margin:0 0 4px;padding-left:18px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.tri div{border:2px solid var(--ink);border-radius:12px;padding:8px 4px;text-align:center;font-size:12.5px;font-weight:800;background:#fff}
+.tri div span{display:block;font-size:26px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="logo">🎨</div>
+    <div>
+      <div class="t1">SMK Negeri 1 Singkep · XI DKV</div>
+      <div class="t2">Pasca Produksi Desain Grafis</div>
+    </div>
+  </header>
+
+  <!-- ============ BERANDA ============ -->
+  <section class="view active" id="v-home">
+    <div class="hero">
+      <span class="tag">Fase F · Kelas XI</span>
+      <h1>Pasca Produksi Desain Grafis</h1>
+      <p>Setelah desain jadi: arsipkan, sebarkan, lalu nilai hasilnya. Belajar ringkas, cepat hafal, dan uji kemampuanmu!</p>
+    </div>
+
+    <div class="card">
+      <h3>🪪 Identitas</h3>
+      <dl class="idcard">
+        <dt>Sekolah</dt><dd>SMK Negeri 1 Singkep</dd>
+        <dt>Guru Pengampu</dt><dd>Rizky Rianda, S.Kom</dd>
+        <dt>Mapel</dt><dd>Desain Komunikasi Visual</dd>
+        <dt>Kelas</dt><dd>XI DKV</dd>
+      </dl>
+    </div>
+
+    <div class="card">
+      <h3>📈 Progres Belajarmu</h3>
+      <div class="prog"><i id="progBar"></i></div>
+      <small id="progTxt" style="font-weight:700"></small>
+    </div>
+
+    <div class="menu">
+      <button class="mbtn" style="background:#ffe3d9" data-go="definisi"><span class="ic">📖</span><b>1. Definisi</b><small>Apa itu pasca produksi?</small></button>
+      <button class="mbtn" style="background:#dfe7ff" data-go="arsip"><span class="ic">🗂️</span><b>2. Arsip File</b><small>Simpan rapi &amp; aman</small></button>
+      <button class="mbtn" style="background:#fff0bf" data-go="distribusi"><span class="ic">📣</span><b>3. Distribusi</b><small>Sebarkan ke audiens</small></button>
+      <button class="mbtn" style="background:#d9f5e8" data-go="analisis"><span class="ic">📊</span><b>4. Analisis</b><small>Dampak &amp; efektivitas</small></button>
+      <button class="mbtn wide" style="background:#ffd6ea" data-go="hafalan"><span class="ic">🧠</span><div><b>Kartu Hafalan</b><br><small>Balik kartu untuk menghafal inti materi</small></div></button>
+      <button class="mbtn wide" style="background:var(--yellow)" data-go="latihan"><span class="ic">🏆</span><div><b>Latihan Soal (Taksonomi Bloom)</b><br><small>11 soal interaktif C1–C6 · skor 0–100</small></div></button>
+    </div>
+    <div class="foot">Tip: pada halaman materi, geser layar ke kiri/kanan untuk pindah halaman.</div>
+  </section>
+
+  <!-- ============ MATERI 1: DEFINISI ============ -->
+  <section class="view" id="v-definisi">
+    <div class="stepper"></div>
+    <span class="tag">Materi 1</span>
+    <div class="pg-title">Definisi Pasca Produksi</div>
+    <div class="pg-sub">Inti pengertian dan tiga kegiatannya.</div>
+
+    <div class="card bigdef">
+      <span class="tag">Definisi</span>
+      <p>Proses pasca produksi desain grafis adalah <u>tahap setelah desain final selesai dan disetujui</u>, meliputi <u>pengarsipan file proyek</u>, <u>pendistribusian desain</u> kepada audiens, serta <u>analisis dampak dan efektivitas</u> desain.</p>
+    </div>
+
+    <div class="card">
+      <h3>🔑 Kata Kunci</h3>
+      <div class="chips">
+        <span class="chip c1">Setelah final</span><span class="chip c2">Arsip</span><span class="chip c3">Distribusi</span><span class="chip c4">Dampak</span><span class="chip c5">Efektivitas</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🔁 Posisi dalam Alur Kerja</h3>
+      <div class="flow">
+        <div>Praproduksi<small>Merencanakan</small></div><i>→</i>
+        <div>Produksi<small>Mengerjakan</small></div><i>→</i>
+        <div class="me">Pasca<small>Menuntaskan</small></div>
+      </div>
+      <table class="mx" style="margin-top:12px">
+        <tr><th></th><th>Produksi</th><th>Pasca Produksi</th></tr>
+        <tr><td>Fokus</td><td>Mengerjakan desain</td><td>Menyimpan, menyebarkan, menilai</td></tr>
+        <tr><td>Hasil</td><td>Desain final</td><td>Arsip rapi, desain tersebar, evaluasi</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>🧭 Jelajah 3 Kegiatan</h3>
+      <p style="font-size:13.5px">Ketuk tiap kegiatan untuk melihat tujuan, kegiatan, dan hasilnya.</p>
+      <div class="rtabs" id="stTabs"></div>
+      <div id="stBody"></div>
+    </div>
+
+    <div class="card">
+      <h3>🎯 Mengapa Penting?</h3>
+      <div class="chips">
+        <span class="chip c1">Aset terlindungi</span><span class="chip c2">Menjangkau audiens</span><span class="chip c3">Mengukur hasil</span><span class="chip c4">Bahan perbaikan</span><span class="chip c5">Portofolio</span>
+      </div>
+    </div>
+
+    <div class="tip"><b>💡 Analogi</b>Seperti koki setelah masakan matang: menyimpan resep, menyajikan ke tamu, lalu menanyakan rasanya agar masakan berikutnya lebih baik.</div>
+    <div class="tip" style="background:#d9f5e8"><b>🧠 Ingat</b>Setelah desain jadi, <b style="display:inline">ADA</b> tiga tugas: <b style="display:inline">A</b>rsipkan → <b style="display:inline">D</b>istribusikan → <b style="display:inline">A</b>nalisis.</div>
+    <div class="pager-slot"></div>
+  </section>
+
+  <!-- ============ MATERI 2: ARSIP ============ -->
+  <section class="view" id="v-arsip">
+    <div class="stepper"></div>
+    <span class="tag">Materi 2</span>
+    <div class="pg-title">Mengarsipkan File Proyek</div>
+    <div class="pg-sub">Simpan rapi agar mudah ditemukan, direvisi, dan dipakai ulang.</div>
+
+    <div class="card bigdef">
+      <span class="tag">Pengertian</span>
+      <p>Pengarsipan adalah <u>penyimpanan dan penataan seluruh file proyek</u> secara terstruktur agar mudah ditemukan, direvisi, dan digunakan kembali di kemudian hari.</p>
+    </div>
+
+    <div class="card">
+      <h3>🎯 Mengapa Diarsipkan?</h3>
+      <div class="chips">
+        <span class="chip c1">Revisi di kemudian hari</span><span class="chip c2">Klien minta ulang</span><span class="chip c3">Portofolio</span><span class="chip c4">Bukti kerja</span><span class="chip c5">Cegah file hilang</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📦 Apa Saja yang Diarsipkan?</h3>
+      <table class="mx">
+        <tr><th>Jenis</th><th>Contoh</th></tr>
+        <tr><td>File sumber</td><td>.ai, .cdr, .psd, .fig (layer utuh)</td></tr>
+        <tr><td>File ekspor</td><td>PDF cetak, JPG, PNG, SVG</td></tr>
+        <tr><td>Aset</td><td>Foto, ilustrasi, ikon, logo</td></tr>
+        <tr><td>Font</td><td>File font yang dipakai</td></tr>
+        <tr><td>Dokumen</td><td>Brief, moodboard, sketsa, lembar revisi, bukti persetujuan</td></tr>
+      </table>
+      <p style="font-size:13.5px;margin:10px 0 0">Gunakan fitur pengumpul aset (misalnya <i>Package</i> atau <i>Collect for Output</i>) agar gambar dan font tertaut ikut tersimpan.</p>
+    </div>
+
+    <span class="tag" style="background:#fff">Contoh struktur folder</span>
+    <button class="toggleAll" data-open="0">Buka semua</button>
+    <div class="step"><button><span class="num">01</span><span class="hd"><b>01_Brief</b><small>Kebutuhan klien</small></span><span class="arr">▼</span></button>
+      <div class="body"><p>Design brief, korespondensi penting, dan kesepakatan kerja.</p></div></div>
+    <div class="step"><button><span class="num">02</span><span class="hd"><b>02_Riset-Konsep</b><small>Dasar desain</small></span><span class="arr">▼</span></button>
+      <div class="body"><p>Hasil riset, moodboard, dan sketsa.</p></div></div>
+    <div class="step"><button><span class="num">03</span><span class="hd"><b>03_Aset</b><small>Bahan pakai</small></span><span class="arr">▼</span></button>
+      <div class="body"><p>Foto, ikon, logo, dan font. Catat sumber dan lisensinya.</p></div></div>
+    <div class="step"><button><span class="num">04</span><span class="hd"><b>04_File-Sumber</b><small>Bisa diedit</small></span><span class="arr">▼</span></button>
+      <div class="body"><p>File kerja berlapis (.ai/.cdr/.psd/.fig), lengkap dengan versinya.</p></div></div>
+    <div class="step"><button><span class="num">05</span><span class="hd"><b>05_Revisi</b><small>Jejak perubahan</small></span><span class="arr">▼</span></button>
+      <div class="body"><p>Lembar revisi internal, masukan klien, dan bukti persetujuan.</p></div></div>
+    <div class="step"><button><span class="num">06</span><span class="hd"><b>06_Final-Ekspor</b><small>Siap pakai</small></span><span class="arr">▼</span></button>
+      <div class="body"><p>PDF cetak, JPG/PNG, dan file lain yang diserahkan ke klien.</p></div></div>
+    <div class="step"><button><span class="num">07</span><span class="hd"><b>07_Dokumentasi</b><small>Bukti &amp; portofolio</small></span><span class="arr">▼</span></button>
+      <div class="body"><p>Foto hasil cetak, tangkapan layar unggahan, dan data hasil untuk portofolio.</p></div></div>
+
+    <div class="card">
+      <h3>🏷️ Coba: Pembuat Nama File</h3>
+      <p style="font-size:13.5px">Ketik nama proyek, lalu pilih versi dan format.</p>
+      <input class="inp" id="fnName" type="text" value="Poster Pameran DKV" maxlength="40" autocomplete="off">
+      <div class="seg" id="fnVer"><button data-v="v1" class="on">v1</button><button data-v="v2">v2</button><button data-v="v3">v3</button><button data-v="final">final</button></div>
+      <div class="seg" id="fnExt"><button data-v=".psd" class="on">.psd</button><button data-v=".ai">.ai</button><button data-v=".pdf">.pdf</button><button data-v=".jpg">.jpg</button></div>
+      <div class="fnout" id="fnOut"></div>
+      <div class="tip" style="margin-bottom:0"><b>Pola:</b>tanggal_nama-proyek_versi.format<br>Konsisten, tanpa spasi, tanpa nama seperti “final-final2”.</div>
+    </div>
+
+    <div class="card">
+      <h3>🛡️ Aturan Backup 3-2-1</h3>
+      <div class="tri">
+        <div><span>3️⃣</span>salinan file</div>
+        <div><span>2️⃣</span>jenis media berbeda</div>
+        <div><span>1️⃣</span>di lokasi terpisah</div>
+      </div>
+      <p style="font-size:13.5px;margin:0">Contoh: laptop, flashdisk/harddisk eksternal, dan penyimpanan cloud.</p>
+    </div>
+
+    <div class="tip"><b>⚖️ Jangan lupa</b>Catat sumber dan lisensi aset. File milik klien bersifat rahasia, jangan disebarkan tanpa izin.</div>
+    <div class="pager-slot"></div>
+  </section>
+
+  <!-- ============ MATERI 3: DISTRIBUSI ============ -->
+  <section class="view" id="v-distribusi">
+    <div class="stepper"></div>
+    <span class="tag">Materi 3</span>
+    <div class="pg-title">Mendistribusikan Desain</div>
+    <div class="pg-sub">Mengantarkan desain ke audiens lewat saluran yang tepat.</div>
+
+    <div class="card bigdef">
+      <span class="tag">Pengertian</span>
+      <p>Distribusi desain adalah <u>penyampaian atau penyebaran desain final</u> kepada klien dan audiens melalui <u>saluran yang sesuai</u>, baik cetak maupun digital.</p>
+    </div>
+
+    <div class="card">
+      <h3>🛣️ Dua Kelompok Saluran</h3>
+      <div class="rg"><b>🖨️ Cetak</b><span>Percetakan (digital printing, offset), sablon, banner, spanduk, brosur, kemasan.</span></div>
+      <div class="rg"><b>📱 Digital</b><span>Media sosial, situs web, WhatsApp, email, marketplace.</span></div>
+    </div>
+
+    <span class="tag" style="background:#fff">Langkah distribusi</span>
+    <button class="toggleAll" data-open="0">Buka semua</button>
+    <div class="step"><button><span class="num">1</span><span class="hd"><b>Tentukan Audiens &amp; Tujuan</b><small>Siapa dan untuk apa?</small></span><span class="arr">▼</span></button>
+      <div class="body"><p>Rujuk brief: siapa target audiens dan apa yang ingin dicapai.</p></div></div>
+    <div class="step"><button><span class="num">2</span><span class="hd"><b>Pilih Saluran</b><small>Di mana audiens berada?</small></span><span class="arr">▼</span></button>
+      <div class="body"><p>Pilih media yang sering dilihat audiens dan sesuai anggaran.</p></div></div>
+    <div class="step"><button><span class="num">3</span><span class="hd"><b>Siapkan File Sesuai Spesifikasi</b><small>Ukuran &amp; format</small></span><span class="arr">▼</span></button>
+      <div class="body"><p>Cetak: PDF CMYK 300 dpi dengan bleed. Digital: JPG/PNG RGB sesuai ukuran piksel platform.</p></div></div>
+    <div class="step"><button><span class="num">4</span><span class="hd"><b>Cek Proof, lalu Cetak/Unggah</b><small>Jangan langsung massal</small></span><span class="arr">▼</span></button>
+      <div class="body"><ul><li>Cetak: lakukan uji cetak (<i>proof</i>) sebelum cetak banyak</li><li>Digital: lihat pratinjau di HP sebelum unggah</li><li>Pilih jadwal tayang yang tepat</li></ul></div></div>
+    <div class="step"><button><span class="num">5</span><span class="hd"><b>Pantau &amp; Catat</b><small>Bahan analisis</small></span><span class="arr">▼</span></button>
+      <div class="body"><p>Catat tanggal, jumlah cetak, lokasi pemasangan, dan tautan unggahan. Data ini dipakai pada tahap analisis.</p><span class="out">Output: Desain tersebar &amp; tercatat</span></div></div>
+
+    <div class="card">
+      <h3>🧪 Coba: Pilih Saluran yang Tepat</h3>
+      <div class="seg" id="dsSeg"><button data-v="poster" class="on">Poster</button><button data-v="logo">Logo UMKM</button><button data-v="konten">Konten medsos</button><button data-v="kemasan">Kemasan</button><button data-v="undangan">Undangan digital</button></div>
+      <div class="sc" id="dsOut"></div>
+      <div class="tip" id="dsNote" style="margin-bottom:0"></div>
+    </div>
+
+    <div class="card">
+      <h3>✅ Daftar Periksa Sebelum Distribusi</h3>
+      <div id="chk"></div>
+      <b id="chkCount"></b>
+      <div class="tip" id="chkMsg" style="display:none;margin:10px 0 0;background:#bff0d6"></div>
+    </div>
+
+    <div class="tip"><b>⚖️ Etika</b>Pastikan aset berizin, pesan tidak menyesatkan, dan cantumkan kredit bila diperlukan.</div>
+    <div class="pager-slot"></div>
+  </section>
+
+  <!-- ============ MATERI 4: ANALISIS ============ -->
+  <section class="view" id="v-analisis">
+    <div class="stepper"></div>
+    <span class="tag">Materi 4</span>
+    <div class="pg-title">Dampak &amp; Efektivitas</div>
+    <div class="pg-sub">Menilai hasil desain, lalu belajar dengan Stop–Start–Continue.</div>
+
+    <div class="card bigdef">
+      <span class="tag">Pengertian</span>
+      <p>Analisis dampak dan efektivitas adalah penilaian <u>seberapa besar pengaruh</u> desain terhadap audiens dan <u>seberapa jauh tujuan</u> pada brief tercapai.</p>
+    </div>
+
+    <div class="card">
+      <h3>⚖️ Dampak vs Efektivitas</h3>
+      <table class="mx">
+        <tr><th></th><th>Pertanyaan</th></tr>
+        <tr><td>Dampak</td><td>Apa pengaruh yang ditimbulkan? (kesadaran, perilaku, penjualan, citra)</td></tr>
+        <tr><td>Efektivitas</td><td>Apakah hasil sesuai target? (hasil dibanding tujuan)</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>🔎 Mengumpulkan Data</h3>
+      <div class="rg"><b>Kuantitatif (angka)</b><span>Jangkauan, klik, like/share, jumlah pengunjung, pendaftar, penjualan, QR/kode promo yang dipakai.</span></div>
+      <div class="rg"><b>Kualitatif (tanggapan)</b><span>Survei, wawancara, komentar audiens, umpan balik klien, pengamatan.</span></div>
+      <p style="font-size:13.5px;margin:6px 0 0">Desain cetak sulit dilacak. Tambahkan <b>QR code</b> atau <b>kode promo</b> agar hasilnya terukur.</p>
+    </div>
+
+    <div class="card">
+      <h3>🧮 Coba: Hitung Efektivitas</h3>
+      <p style="font-size:13.5px">Contoh: jumlah pendaftar pameran. Geser target dan hasil.</p>
+      <div class="rowlbl"><span>Target</span><span id="efT"></span></div>
+      <input class="rng" id="efTarget" type="range" min="20" max="200" step="10" value="100">
+      <div class="rowlbl"><span>Hasil</span><span id="efH"></span></div>
+      <input class="rng" id="efHasil" type="range" min="0" max="200" step="5" value="40">
+      <div class="big" id="efPct"></div>
+      <div class="prog"><i id="efBar"></i></div>
+      <div class="tip" id="efMsg" style="margin:10px 0 0"></div>
+      <p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">Efektivitas = hasil ÷ target × 100%. Kategori di sini hanyalah contoh latihan.</p>
+    </div>
+
+    <div class="card bigdef" style="background:var(--purple)">
+      <span class="tag">Metode refleksi</span>
+      <p><b>Stop–Start–Continue</b> membantu menentukan <u>apa yang dihentikan</u>, <u>apa yang dimulai</u>, dan <u>apa yang dilanjutkan</u> berdasarkan hasil analisis.</p>
+    </div>
+
+    <div class="card">
+      <h3>🚦 Jelajah Stop – Start – Continue</h3>
+      <div class="rtabs" id="sscTabs"></div>
+      <div id="sscBody"></div>
+    </div>
+
+    <div class="card">
+      <h3>📋 Contoh Kasus: Poster Pameran</h3>
+      <p style="font-size:13px;color:var(--muted)">Data rekaan untuk latihan.</p>
+      <ul class="kasus">
+        <li>Target pendaftar 100, hasil 40 (pencapaian 40%).</li>
+        <li>Unggahan malam (22.00) hanya sedikit interaksi.</li>
+        <li>QR di poster dipindai 15 kali, tetapi tidak ada kode promo.</li>
+        <li>Komentar memuji ilustrasi dan warna cerah.</li>
+        <li>Banyak yang bertanya ulang tanggal dan lokasi.</li>
+      </ul>
+      <div class="rg ssc-s" style="margin-top:10px"><b>🛑 Stop</b><span>Unggah di jam sepi. Teks informasi yang terlalu kecil.</span></div>
+      <div class="rg ssc-t"><b>▶️ Start</b><span>Pakai kode promo untuk melacak pendaftar. Buat versi story/video pendek.</span></div>
+      <div class="rg ssc-c"><b>🔁 Continue</b><span>Gaya ilustrasi dan palet warna cerah yang disukai audiens.</span></div>
+    </div>
+
+    <div class="card">
+      <h3>🛠️ Cara Memakai SSC</h3>
+      <ol class="how">
+        <li>Kumpulkan data hasil dan tanggapan.</li>
+        <li>Kelompokkan temuan ke kolom Stop, Start, Continue.</li>
+        <li>Prioritaskan yang paling berpengaruh.</li>
+        <li>Buat tindakan nyata: apa, siapa, kapan.</li>
+        <li>Catat sebagai pelajaran untuk proyek berikutnya.</li>
+      </ol>
+    </div>
+
+    <div class="tip" style="background:#d9f5e8"><b>🧠 Ingat</b>Stop = hentikan yang tidak efektif · Start = mulai hal baru · Continue = lanjutkan yang berhasil.</div>
+    <div class="pager-slot"></div>
+  </section>
+
+  <!-- ============ HAFALAN ============ -->
+  <section class="view" id="v-hafalan">
+    <span class="tag">Kartu Hafalan</span>
+    <div class="pg-title">Balik &amp; Hafalkan</div>
+    <div class="pg-sub">Ketuk kartu untuk melihat jawaban. Coba jawab dulu dalam hati!</div>
+    <div class="fc-wrap"><div class="fc" id="fc">
+      <div class="face front"><small id="fcLab">Pertanyaan</small><div class="q" id="fcQ"></div><div class="hint">Ketuk untuk membalik ↻</div></div>
+      <div class="face back"><small>Jawaban</small><div class="a" id="fcA"></div></div>
+    </div></div>
+    <div class="fc-ctl"><button class="btn" id="fcPrev">‹</button><div class="fc-count" id="fcCount"></div><button class="btn" id="fcNext">›</button></div>
+    <div class="fc-ctl"><button class="btn alt" id="fcShuffle">🔀 Acak</button><button class="btn" id="fcReset">↺ Urut</button></div>
+    <button class="btn main block" data-go="latihan">Lanjut ke Latihan Soal 🏆</button>
+    <div style="height:16px"></div>
+  </section>
+
+  <!-- ============ LATIHAN ============ -->
+  <section class="view" id="v-latihan">
+    <div id="quizArea"></div>
+  </section>
+
+  <nav class="nav">
+    <button data-nav="home"><span>🏠</span>Beranda</button>
+    <button data-nav="materi"><span>📚</span>Materi</button>
+    <button data-nav="hafalan"><span>🧠</span>Hafalan</button>
+    <button data-nav="latihan"><span>🏆</span>Latihan</button>
+  </nav>
+</div>
+
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!==undefined)e.innerHTML=html;return e}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+var store={get:function(k,d){try{var v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ========== NAVIGASI ========== */
+var views=['home','definisi','arsip','distribusi','analisis','hafalan','latihan'];
+var materi=['definisi','arsip','distribusi','analisis'];
+var shortName={definisi:'Definisi',arsip:'Arsip',distribusi:'Distribusi',analisis:'Analisis'};
+var visited=store.get('dkvpp_visited',{});
+var current='home';
+var LAST=materi.length-1;
+
+function go(v){
+  current=v;
+  views.forEach(function(x){$('#v-'+x).classList.toggle('active',x===v)});
+  var navKey=materi.indexOf(v)>-1?'materi':v;
+  $$('.nav button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-nav')===navKey)});
+  if(materi.indexOf(v)>-1){visited[v]=1;store.set('dkvpp_visited',visited)}
+  if(v==='home')updateProgress();
+  if(v==='latihan'&&!quizStarted)startQuiz();
+  window.scrollTo(0,0);
+  buildStepper();
+}
+function updateProgress(){
+  var n=Object.keys(visited).length;
+  $('#progBar').style.width=(n/materi.length*100)+'%';
+  var best=store.get('dkvpp_best',null);
+  $('#progTxt').textContent=n+' dari '+materi.length+' materi sudah dibaca'+(best!==null?' · Skor terbaik latihan: '+best:'');
+}
+function buildStepper(){
+  materi.forEach(function(m,i){
+    var sec=$('#v-'+m),st=$('.stepper',sec);
+    st.innerHTML='';
+    materi.forEach(function(k,j){
+      var b=el('button',(k===m?'on ':'')+(visited[k]?'done':''),(j+1)+'. '+shortName[k]);
+      b.onclick=function(){go(k)};
+      st.appendChild(b);
+    });
+    var slot=$('.pager-slot',sec);
+    slot.innerHTML='';
+    var pg=el('div','pager');
+    var prev=el('button','btn','‹ '+(i===0?'Beranda':shortName[materi[i-1]]));
+    prev.onclick=function(){go(i===0?'home':materi[i-1])};
+    var next=el('button','btn main',(i===LAST?'Kartu Hafalan':shortName[materi[i+1]])+' ›');
+    next.onclick=function(){go(i===LAST?'hafalan':materi[i+1])};
+    pg.appendChild(prev);pg.appendChild(next);slot.appendChild(pg);
+  });
+}
+$$('[data-go]').forEach(function(b){b.onclick=function(){go(b.getAttribute('data-go'))}});
+$$('.nav button').forEach(function(b){b.onclick=function(){var k=b.getAttribute('data-nav');go(k==='materi'?(materi.indexOf(current)>-1?current:'definisi'):k)}});
+
+/* geser untuk pindah halaman materi */
+(function(){
+  var x0=null,y0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return;
+    var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+    if(Math.abs(dx)<80||Math.abs(dx)<Math.abs(dy)*1.8)return;
+    var i=materi.indexOf(current);if(i<0)return;
+    if(dx<0){go(i===LAST?'hafalan':materi[i+1])}else{go(i===0?'home':materi[i-1])}
+  },{passive:true});
+})();
+
+/* accordion */
+$$('.step>button').forEach(function(b){b.onclick=function(){b.parentNode.classList.toggle('open')}});
+$$('.toggleAll').forEach(function(b){
+  b.onclick=function(){
+    var sec=b.closest('section');
+    var open=b.getAttribute('data-open')!=='1';
+    $$('.step',sec).forEach(function(s){s.classList.toggle('open',open)});
+    b.setAttribute('data-open',open?'1':'0');
+    b.textContent=open?'Tutup semua':'Buka semua';
+  };
+});
+
+/* ========== KARTU HAFALAN ========== */
+var cards=[
+ ['Apa itu pasca produksi desain grafis?','Tahap setelah desain final selesai dan disetujui: pengarsipan, distribusi, serta analisis dampak dan efektivitas.'],
+ ['Tiga kegiatan utama pasca produksi?','Arsipkan, Distribusikan, Analisis (A-D-A).'],
+ ['Beda produksi dan pasca produksi?','Produksi: mengerjakan desain hingga final. Pasca produksi: menyimpan, menyebarkan, dan menilai hasilnya.'],
+ ['Mengapa file proyek diarsipkan?','Untuk revisi di kemudian hari, permintaan ulang klien, portofolio, bukti kerja, dan mencegah file hilang.'],
+ ['File apa saja yang diarsipkan?','File sumber, file ekspor, aset, font, dan dokumen (brief, sketsa, revisi, bukti persetujuan).'],
+ ['Contoh struktur folder proyek?','01_Brief, 02_Riset-Konsep, 03_Aset, 04_File-Sumber, 05_Revisi, 06_Final-Ekspor, 07_Dokumentasi.'],
+ ['Contoh penamaan file yang baik?','2026-11-12_poster-pameran_v3.pdf (tanggal_nama-proyek_versi). Hindari "final-final2".'],
+ ['Aturan backup 3-2-1?','3 salinan file, di 2 jenis media berbeda, dengan 1 salinan di lokasi terpisah.'],
+ ['Mengapa mencatat sumber dan lisensi aset?','Agar penggunaan aset sah dan terhindar dari pelanggaran hak cipta.'],
+ ['Apa itu distribusi desain?','Penyampaian desain final kepada klien dan audiens lewat saluran yang sesuai.'],
+ ['Dua kelompok saluran distribusi?','Cetak (percetakan, banner, kemasan) dan digital (medsos, web, WhatsApp, email).'],
+ ['Urutan langkah distribusi?','Audiens & tujuan → saluran → siapkan file → cek proof lalu cetak/unggah → pantau & catat.'],
+ ['Mengapa cek proof sebelum cetak massal?','Menghindari kesalahan warna atau ukuran dan biaya cetak ulang.'],
+ ['Format file untuk media sosial?','JPG atau PNG, mode RGB, ukuran piksel sesuai platform.'],
+ ['Apa itu efektivitas desain?','Sejauh mana desain mencapai tujuan pada brief (hasil dibanding target).'],
+ ['Rumus pencapaian target?','Hasil ÷ target × 100%.'],
+ ['Contoh data kuantitatif dan kualitatif?','Kuantitatif: jangkauan, klik, penjualan. Kualitatif: survei, wawancara, komentar.'],
+ ['Apa itu Stop–Start–Continue?','Metode refleksi untuk menentukan apa yang dihentikan, dimulai, dan dilanjutkan.'],
+ ['Arti Stop, Start, dan Continue?','Stop: hentikan yang tidak efektif. Start: mulai hal baru. Continue: lanjutkan yang berhasil.'],
+ ['Langkah memakai SSC?','Kumpulkan data → kelompokkan → prioritaskan → buat tindakan nyata → catat sebagai pelajaran.']
+];
+var deck=cards.slice(),ci=0;
+function drawCard(){
+  var c=deck[ci];$('#fc').classList.remove('flip');
+  $('#fcQ').textContent=c[0];$('#fcA').textContent=c[1];
+  $('#fcCount').textContent=(ci+1)+' / '+deck.length;
+}
+$('#fc').onclick=function(){this.classList.toggle('flip')};
+$('#fcNext').onclick=function(){ci=(ci+1)%deck.length;drawCard()};
+$('#fcPrev').onclick=function(){ci=(ci-1+deck.length)%deck.length;drawCard()};
+$('#fcShuffle').onclick=function(){deck=shuffle(cards);ci=0;drawCard()};
+$('#fcReset').onclick=function(){deck=cards.slice();ci=0;drawCard()};
+drawCard();
+
+/* ========== JELAJAH 3 KEGIATAN ========== */
+var STG=[
+ ['Arsip','Menjaga semua file proyek tetap aman, rapi, dan mudah ditemukan.','Menata folder, memberi nama file, menyalin ke beberapa media (backup), mencatat sumber aset.','Arsip proyek yang lengkap dan terstruktur'],
+ ['Distribusi','Mengantarkan desain final kepada klien dan audiens.','Memilih saluran, menyiapkan file sesuai spesifikasi, cek proof, mencetak atau mengunggah, mencatat penyebaran.','Desain tersebar dan tercatat'],
+ ['Analisis','Menilai pengaruh dan keberhasilan desain terhadap tujuan.','Mengumpulkan data dan tanggapan, membandingkan hasil dengan target, menyusun Stop-Start-Continue.','Evaluasi dan rekomendasi untuk proyek berikutnya']
+];
+(function(){
+  var tb=$('#stTabs'),bd=$('#stBody');
+  function draw(i){
+    var s=STG[i];bd.innerHTML='';
+    [['🎯 Tujuan',s[1]],['🛠️ Kegiatan',s[2]],['📤 Hasil',s[3]]].forEach(function(r){bd.appendChild(el('div','rg','<b>'+r[0]+'</b><span>'+r[1]+'</span>'))});
+  }
+  STG.forEach(function(s,i){
+    var b=el('button',i===0?'on':'',(i+1)+'. '+s[0]);
+    b.onclick=function(){$$('button',tb).forEach(function(x){x.classList.remove('on')});b.classList.add('on');draw(i)};
+    tb.appendChild(b);
+  });
+  draw(0);
+})();
+
+/* ========== PEMBUAT NAMA FILE ========== */
+(function(){
+  var ver='v1',ext='.psd';
+  function pad(n){return (n<10?'0':'')+n}
+  function draw(){
+    var d=new Date();
+    var date=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+    var nm=$('#fnName').value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+    if(!nm)nm='nama-proyek';
+    $('#fnOut').textContent=date+'_'+nm+'_'+ver+ext;
+    $$('#fnVer button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===ver)});
+    $$('#fnExt button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===ext)});
+  }
+  $('#fnName').oninput=draw;
+  $$('#fnVer button').forEach(function(b){b.onclick=function(){ver=b.getAttribute('data-v');draw()}});
+  $$('#fnExt button').forEach(function(b){b.onclick=function(){ext=b.getAttribute('data-v');draw()}});
+  draw();
+})();
+
+/* ========== PILIH SALURAN ========== */
+(function(){
+  var DS={
+   poster:{rows:[['Saluran','Cetak di percetakan + unggah ke medsos'],['Format file','PDF CMYK 300 dpi (cetak), JPG RGB (medsos)'],['Persiapan','Uji cetak (proof) dan tentukan jumlah cetak'],['Pemasangan','Tempel di titik yang sering dilalui target']],note:'Poster menjangkau audiens lokal lewat cetak, dan audiens lebih luas lewat unggahan digital.'},
+   logo:{rows:[['Saluran','Diserahkan ke klien untuk semua media'],['Format file','SVG/PDF vektor + PNG transparan'],['Persiapan','Versi berwarna, hitam-putih, horizontal, dan vertikal'],['Pendamping','Panduan penggunaan logo singkat']],note:'Logo dipakai di banyak media, sehingga paket file harus lengkap dan fleksibel.'},
+   konten:{rows:[['Saluran','Instagram, TikTok, Facebook'],['Format file','JPG/PNG RGB (video: MP4)'],['Persiapan','Ukuran piksel sesuai platform, caption, hashtag'],['Jadwal','Unggah saat audiens paling aktif']],note:'Spesifikasi platform dapat berubah. Cek ketentuan terbaru sebelum mengunggah.'},
+   kemasan:{rows:[['Saluran','Percetakan kemasan atau produsen'],['Format file','PDF CMYK + dieline (pola potong) + bleed'],['Persiapan','Sampel fisik atau mockup, cek warna'],['Wajib','Uji cetak (proof)']],note:'Kemasan dicetak dalam jumlah besar dan mahal bila salah, sehingga uji cetak tidak boleh dilewati.'},
+   undangan:{rows:[['Saluran','WhatsApp atau email'],['Format file','JPG/PNG RGB atau PDF ringan'],['Persiapan','Ukuran file kecil, tautan lokasi'],['Periksa','Teks tetap terbaca di layar HP']],note:'File berukuran kecil lebih cepat terkirim dan mudah dibuka di HP penerima.'}
+  };
+  function draw(k){
+    var o=$('#dsOut');o.innerHTML='';
+    DS[k].rows.forEach(function(r){o.appendChild(el('div','','<b>'+r[0]+'</b>'+r[1]))});
+    $('#dsNote').innerHTML='<b>Alasannya</b>'+DS[k].note;
+    $$('#dsSeg button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===k)});
+  }
+  $$('#dsSeg button').forEach(function(b){b.onclick=function(){draw(b.getAttribute('data-v'))}});
+  draw('poster');
+})();
+
+/* ========== DAFTAR PERIKSA DISTRIBUSI ========== */
+(function(){
+  var ITEMS=[
+   'Target audiens dan tujuan sudah jelas',
+   'Saluran yang dipilih sesuai kebiasaan audiens',
+   'File sesuai spesifikasi saluran (ukuran, format, mode warna)',
+   'Proof atau pratinjau sudah diperiksa',
+   'Aset berlisensi dan izin penggunaan aman',
+   'Pencatatan siap (tanggal, jumlah, lokasi, tautan)'
+  ];
+  var box=$('#chk'),on={},n=0;
+  function upd(){
+    $('#chkCount').textContent=n+' dari '+ITEMS.length+' sudah diperiksa';
+    var m=$('#chkMsg');
+    if(n===ITEMS.length){m.style.display='block';m.innerHTML='<b>Siap didistribusikan! 🎉</b>Semua poin sudah diperiksa.'}else m.style.display='none';
+  }
+  ITEMS.forEach(function(t,i){
+    var b=el('button','ck','<i>☐</i><span>'+t+'</span>');
+    b.onclick=function(){on[i]=!on[i];n+=on[i]?1:-1;b.classList.toggle('on',on[i]);$('i',b).textContent=on[i]?'☑':'☐';upd()};
+    box.appendChild(b);
+  });
+  upd();
+})();
+
+/* ========== HITUNG EFEKTIVITAS ========== */
+(function(){
+  function draw(){
+    var t=+$('#efTarget').value,h=+$('#efHasil').value;
+    var pct=Math.round(h/t*100);
+    $('#efT').textContent=t;$('#efH').textContent=h;
+    $('#efPct').textContent=pct+'%';
+    $('#efBar').style.width=Math.min(100,pct)+'%';
+    var m=$('#efMsg');
+    if(pct>=100){m.style.background='#bff0d6';m.innerHTML='<b>✅ Target tercapai</b>Pertahankan strategi yang berhasil (Continue) dan catat penyebabnya.'}
+    else if(pct>=70){m.style.background='#fff0bf';m.innerHTML='<b>🟡 Mendekati target</b>Cari hambatan kecil lewat SSC agar target berikutnya tercapai.'}
+    else{m.style.background='#ffe3d9';m.innerHTML='<b>⚠️ Belum efektif</b>Telusuri penyebabnya: desain, saluran, atau waktu penyebaran. Gunakan Stop-Start-Continue.'}
+  }
+  $('#efTarget').oninput=draw;$('#efHasil').oninput=draw;draw();
+})();
+
+/* ========== JELAJAH SSC ========== */
+(function(){
+  var SSC=[
+   ['🛑 Stop','ssc-s',[['Arti','Hal yang tidak efektif, boros sumber daya, atau merugikan sehingga perlu dihentikan.'],['Pertanyaan pemandu','Apa yang tidak berhasil atau menimbulkan masalah?'],['Contoh','Mengunggah poster di jam sepi. Memakai teks informasi yang terlalu kecil.']]],
+   ['▶️ Start','ssc-t',[['Arti','Hal baru yang belum dilakukan tetapi berpotensi meningkatkan hasil.'],['Pertanyaan pemandu','Apa yang bisa dicoba agar hasilnya lebih baik?'],['Contoh','Menambahkan kode promo untuk melacak pendaftar. Membuat versi video pendek.']]],
+   ['🔁 Continue','ssc-c',[['Arti','Hal yang sudah berhasil dan layak dipertahankan.'],['Pertanyaan pemandu','Apa yang sudah berjalan baik dan disukai audiens?'],['Contoh','Gaya ilustrasi dan palet warna cerah yang banyak dipuji.']]]
+  ];
+  var tb=$('#sscTabs'),bd=$('#sscBody');
+  function draw(i){
+    bd.innerHTML='';
+    SSC[i][2].forEach(function(r){bd.appendChild(el('div','rg '+SSC[i][1],'<b>'+r[0]+'</b><span>'+r[1]+'</span>'))});
+  }
+  SSC.forEach(function(s,i){
+    var b=el('button',i===0?'on':'',s[0]);
+    b.onclick=function(){$$('button',tb).forEach(function(x){x.classList.remove('on')});b.classList.add('on');draw(i)};
+    tb.appendChild(b);
+  });
+  draw(0);
+})();
+
+/* ========== LATIHAN SOAL ========== */
+/* --- pembangun tipe soal: mengembalikan fungsi check() -> pecahan 0..1 --- */
+function mc(b,opts,ans){
+  var sel=-1,wrap=el('div','opts inter');
+  opts.forEach(function(o,i){
+    var btn=el('button','opt','<span class="k">'+'ABCD'[i]+'</span><span>'+o+'</span>');
+    btn.onclick=function(){sel=i;$$('.opt',wrap).forEach(function(x,j){x.classList.toggle('sel',j===i)})};
+    wrap.appendChild(btn);
+  });
+  b.appendChild(wrap);
+  return function(){
+    $$('.opt',wrap).forEach(function(x,j){x.classList.remove('sel');if(j===ans)x.classList.add('ok');else if(j===sel)x.classList.add('bad')});
+    return sel===ans?1:0;
+  };
+}
+function tf(b,items){
+  var ans=items.map(function(){return null}),rows=[];
+  items.forEach(function(it,i){
+    var r=el('div','tfrow inter');
+    r.appendChild(el('p','',it.t));
+    var bt=el('div','tfbtns');
+    [['Benar',true],['Salah',false]].forEach(function(p){
+      var x=el('button','',p[0]);
+      x.onclick=function(){ans[i]=p[1];$$('button',bt).forEach(function(y){y.classList.remove('sel')});x.classList.add('sel')};
+      bt.appendChild(x);
+    });
+    r.appendChild(bt);r.appendChild(el('div','why',it.why));
+    b.appendChild(r);rows.push(r);
+  });
+  return function(){
+    var c=0;
+    rows.forEach(function(r,i){
+      var ok=ans[i]===items[i].a;if(ok)c++;
+      r.classList.add(ok?'ok':'bad');$$('button',r).forEach(function(y){y.classList.remove('sel')});
+    });
+    b.classList.add('checked');
+    return c/items.length;
+  };
+}
+function match(b,pairs){
+  var L=pairs.map(function(p){return p[0]});
+  var R=shuffle(pairs.map(function(p,i){return {t:p[1],o:i}}));
+  var map={},cur=null;
+  var box=el('div','match inter'),cl=el('div','col'),cr=el('div','col');
+  box.appendChild(cl);box.appendChild(cr);b.appendChild(box);
+  b.appendChild(el('p','empty','Ketuk istilah di kiri, lalu ketuk pengertiannya di kanan. Ketuk lagi untuk membatalkan.'));
+  function draw(){
+    cl.innerHTML='';cr.innerHTML='';
+    L.forEach(function(t,i){
+      var has=map[i]!==undefined;
+      var x=el('button','mi'+(cur===i?' cur':'')+(has?' p'+i:''),(has?'<b class="bd">'+(i+1)+'</b>':'')+t);
+      x.onclick=function(){if(map[i]!==undefined){delete map[i];cur=null}else cur=(cur===i?null:i);draw()};
+      cl.appendChild(x);
+    });
+    R.forEach(function(r,ri){
+      var li=null;Object.keys(map).forEach(function(k){if(map[k]===ri)li=+k});
+      var x=el('button','mi'+(li!==null?' p'+li:''),(li!==null?'<b class="bd">'+(li+1)+'</b>':'')+r.t);
+      x.onclick=function(){
+        if(li!==null){delete map[li];draw();return}
+        if(cur!==null){map[cur]=ri;cur=null;draw()}
+      };
+      cr.appendChild(x);
+    });
+  }
+  draw();
+  return function(){
+    var c=0,lb=$$('.mi',cl),rb=$$('.mi',cr);
+    L.forEach(function(t,i){
+      var ok=map[i]!==undefined&&R[map[i]].o===i;if(ok)c++;
+      lb[i].classList.add(ok?'ok':'bad');
+      if(map[i]!==undefined)rb[map[i]].classList.add(ok?'ok':'bad');
+    });
+    return c/L.length;
+  };
+}
+function fill(b,tpl,answers,bank){
+  var vals=answers.map(function(){return null}),words=shuffle(bank);
+  var sen=el('div','sentence inter'),bk=el('div','bank inter');
+  b.appendChild(sen);b.appendChild(el('p','lbl','Bank kata (ketuk untuk mengisi)'));b.appendChild(bk);
+  var parts=tpl.split(/\{(\d)\}/);
+  function draw(){
+    sen.innerHTML='';
+    parts.forEach(function(p,i){
+      if(i%2===0){sen.appendChild(document.createTextNode(p))}
+      else{
+        var k=+p,x=el('button','blank'+(vals[k]?' f':''),vals[k]||'&nbsp;');
+        x.onclick=function(){vals[k]=null;draw()};
+        sen.appendChild(x);
+      }
+    });
+    bk.innerHTML='';
+    words.forEach(function(w){
+      var x=el('button','wd'+(vals.indexOf(w)>-1?' used':''),w);
+      x.onclick=function(){var k=vals.indexOf(null);if(k>-1){vals[k]=w;draw()}};
+      bk.appendChild(x);
+    });
+  }
+  draw();
+  return function(){
+    var c=0,bl=$$('.blank',sen);
+    answers.forEach(function(a,i){
+      var ok=vals[i]===a;if(ok)c++;
+      bl[i].classList.add(ok?'ok':'bad');
+      if(!ok)bl[i].innerHTML=(vals[i]?'<s>'+vals[i]+'</s> ':'')+a;
+    });
+    return c/answers.length;
+  };
+}
+function scenarios(b,items,options){
+  var sels=[];
+  items.forEach(function(it){
+    var r=el('div','scn'),s=el('select');
+    r.appendChild(el('p','',it.t));
+    s.appendChild(el('option','','— pilih langkah —')).value='';
+    options.forEach(function(o){var op=el('option','',o);op.value=o;s.appendChild(op)});
+    r.appendChild(s);b.appendChild(r);sels.push(s);
+  });
+  return function(){
+    var c=0;
+    sels.forEach(function(s,i){
+      var ok=s.value===items[i].a;if(ok)c++;
+      s.classList.add(ok?'ok':'bad');
+    });
+    return c/items.length;
+  };
+}
+function ordering(b,steps){
+  var seq=[],n=steps.length;
+  b.appendChild(el('p','lbl','Urutan jawabanmu'));
+  var ul=el('ol','seq inter'),pool=el('div','pool inter');
+  b.appendChild(ul);b.appendChild(el('p','lbl','Pilihan langkah (ketuk untuk memasukkan)'));b.appendChild(pool);
+  var order=shuffle(steps.map(function(s,i){return i}));
+  function draw(){
+    ul.innerHTML='';
+    if(!seq.length)ul.appendChild(el('li','empty','Belum ada langkah dipilih.'));
+    seq.forEach(function(k,p){
+      var li=el('li'),x=el('button','','<b>'+(p+1)+'</b>'+steps[k]);
+      x.onclick=function(){seq.splice(p,1);draw()};
+      li.appendChild(x);ul.appendChild(li);
+    });
+    pool.innerHTML='';
+    order.forEach(function(k){
+      if(seq.indexOf(k)>-1)return;
+      var x=el('button','',steps[k]);
+      x.onclick=function(){seq.push(k);draw()};
+      pool.appendChild(x);
+    });
+  }
+  draw();
+  return function(){
+    var c=0,bs=$$('li button',ul);
+    seq.forEach(function(k,p){var ok=k===p;if(ok)c++;if(bs[p])bs[p].classList.add(ok?'ok':'bad')});
+    return c/n;
+  };
+}
+function compose(b,items){
+  var sels=[];
+  items.forEach(function(it){
+    var r=el('div','scn');r.appendChild(el('p','lbl',it.l));
+    var s=el('select');var ph=el('option','','— pilih —');ph.value='';s.appendChild(ph);
+    shuffle(it.o.map(function(t,i){return {t:t,i:i}})).forEach(function(o){var op=el('option','',o.t);op.value=o.i;s.appendChild(op)});
+    r.appendChild(s);b.appendChild(r);sels.push(s);
+  });
+  return function(){
+    var c=0;
+    sels.forEach(function(s,i){var ok=s.value==='0';if(ok)c++;s.classList.add(ok?'ok':'bad');if(!ok){var p=s.parentNode;p.appendChild(el('div','why','<b>Paling tepat:</b> '+items[i].o[0])).style.display='block'}});
+    return c/items.length;
+  };
+}
+
+
+/* --- klasifikasi ke kategori --- */
+function classify(b,items,cats){
+  var ans=items.map(function(){return null}),rows=[];
+  items.forEach(function(it,i){
+    var r=el('div','swrow inter');r.appendChild(el('p','',it.t));
+    var g=el('div','swbtns'+(cats.length===3?' n3':''));
+    cats.forEach(function(c,k){
+      var x=el('button','',c);
+      x.onclick=function(){ans[i]=k;$$('button',g).forEach(function(y){y.className=''});x.className='sel c'+k};
+      g.appendChild(x);
+    });
+    r.appendChild(g);b.appendChild(r);rows.push(r);
+  });
+  return function(){
+    var c=0;
+    rows.forEach(function(r,i){
+      var ok=ans[i]===items[i].a;if(ok)c++;
+      r.classList.add(ok?'ok':'bad');
+      var w=el('div','why','<b>Jawaban: '+cats[items[i].a]+'</b> — '+items[i].why);
+      w.style.display='block';r.appendChild(w);
+    });
+    return c/items.length;
+  };
+}
+
+/* --- bank soal --- */
+var BLOOM={C1:{n:'Mengingat',c:'#ffe3d9'},C2:{n:'Memahami',c:'#dfe7ff'},C3:{n:'Menerapkan',c:'#fff0bf'},C4:{n:'Menganalisis',c:'#d9f5e8'},C5:{n:'Mengevaluasi',c:'#eadfff'},C6:{n:'Mencipta',c:'#ffd6ea'}};
+var KEG=['Pengarsipan','Distribusi','Analisis dampak','Finalisasi (produksi)'];
+var DIST_STEPS=['Tentukan target audiens dan tujuan','Pilih saluran yang sesuai','Siapkan file sesuai spesifikasi saluran','Cek proof atau pratinjau, lalu cetak atau unggah','Pantau dan catat hasil penyebaran'];
+
+var quiz=[
+ {c:'C1',type:'Pilihan Ganda',w:7,
+  p:'Manakah pernyataan yang paling tepat tentang pasca produksi desain grafis?',
+  ex:'Pasca produksi dilakukan setelah desain final selesai dan disetujui, mencakup pengarsipan, distribusi, serta analisis dampak dan efektivitas.',
+  b:function(b){return mc(b,['Tahap riset dan penentuan konsep','Tahap setelah desain final: pengarsipan, distribusi, dan analisis dampak serta efektivitas','Tahap menyusun sketsa awal','Tahap membuat desain awal di komputer'],1)}},
+ {c:'C1',type:'Benar / Salah',w:8,
+  p:'Tentukan apakah setiap pernyataan Benar atau Salah.',
+  ex:'Periksa penjelasan pada tiap pernyataan di atas.',
+  b:function(b){return tf(b,[
+    {t:'Pasca produksi dilakukan sebelum desain final selesai.',a:false,why:'Salah. Pasca produksi dimulai setelah desain final selesai dan disetujui.'},
+    {t:'Menyimpan file sumber dan aset proyek termasuk kegiatan pengarsipan.',a:true,why:'Benar. File sumber dan aset wajib diarsipkan agar desain mudah direvisi.'},
+    {t:'Distribusi desain hanya dapat dilakukan lewat percetakan.',a:false,why:'Salah. Distribusi dapat melalui saluran cetak maupun digital.'}])}},
+ {c:'C1',type:'Mencocokkan',w:8,
+  p:'Pasangkan kegiatan pasca produksi dengan pengertiannya.',
+  ex:'Pengarsipan = menyimpan dan menata file; distribusi = menyampaikan desain lewat saluran yang tepat; analisis dampak = menilai pengaruh dan keberhasilan; SSC = metode refleksi.',
+  b:function(b){return match(b,[
+    ['Pengarsipan','Menyimpan dan menata seluruh file proyek agar mudah ditemukan dan dipakai ulang'],
+    ['Distribusi','Menyampaikan desain final kepada klien dan audiens lewat saluran yang tepat'],
+    ['Analisis dampak','Menilai pengaruh dan keberhasilan desain terhadap tujuan'],
+    ['Stop-Start-Continue','Metode refleksi untuk menentukan apa yang dihentikan, dimulai, dan dilanjutkan']])}},
+ {c:'C2',type:'Mencocokkan',w:8,
+  p:'Pasangkan istilah dengan penjelasannya.',
+  ex:'Stop = hentikan yang tidak efektif; Start = mulai hal baru; Continue = lanjutkan yang berhasil; backup 3-2-1 = tiga salinan, dua media, satu lokasi terpisah.',
+  b:function(b){return match(b,[
+    ['Stop','Hal yang tidak efektif atau merugikan sehingga dihentikan'],
+    ['Start','Hal baru yang perlu dimulai untuk perbaikan'],
+    ['Continue','Hal yang sudah berhasil dan dipertahankan'],
+    ['Backup 3-2-1','Tiga salinan, dua jenis media, satu di lokasi terpisah']])}},
+ {c:'C2',type:'Kalimat Rumpang',w:10,
+  p:'Lengkapi kalimat berikut dengan kata dari bank kata.',
+  ex:'Aturan 3-2-1: tiga salinan file, disimpan pada dua jenis media berbeda, dan satu salinan di lokasi terpisah.',
+  b:function(b){return fill(b,'Aturan backup 3-2-1 berarti {0} salinan file, disimpan pada {1} jenis media berbeda, dan {2} salinan di lokasi terpisah.',['3','2','1'],['3','2','1','4','5','0'])}},
+ {c:'C3',type:'Studi Kasus',w:10,
+  p:'Tentukan kegiatan yang sedang dilakukan pada setiap situasi.',
+  ex:'Membuat folder dan backup = pengarsipan; mengunggah dan mencetak = distribusi; membandingkan hasil dengan target = analisis dampak; ekspor PDF dan cek ejaan sebelum dikirim = finalisasi (masih tahap produksi).',
+  b:function(b){return scenarios(b,[
+    {t:'Rani membuat folder 01_Brief sampai 07_Dokumentasi, lalu menyalin semua file ke cloud.',a:'Pengarsipan'},
+    {t:'Tim mengunggah poster ke Instagram dan mencetak 200 lembar untuk ditempel di sekolah.',a:'Distribusi'},
+    {t:'Dimas membandingkan jumlah pendaftar dengan target dan membaca komentar audiens.',a:'Analisis dampak'},
+    {t:'Dika mengekspor PDF CMYK dengan bleed dan memeriksa ejaan sebelum dikirim ke klien.',a:'Finalisasi (produksi)'}],KEG)}},
+ {c:'C3',type:'Mengurutkan',w:10,
+  p:'Susun langkah mendistribusikan desain dengan urutan yang benar.',
+  ex:'Mulai dari audiens dan tujuan, pilih saluran, siapkan file, cek proof lalu cetak atau unggah, dan terakhir pantau serta catat hasilnya.',
+  b:function(b){return ordering(b,DIST_STEPS)}},
+ {c:'C4',type:'Klasifikasi SSC',w:10,
+  p:'Poster pameran sudah disebar. Kelompokkan setiap temuan ke Stop, Start, atau Continue.',
+  ex:'Stop: hal yang tidak efektif. Start: hal baru yang dicoba. Continue: hal yang sudah berhasil.',
+  b:function(b){return classify(b,[
+    {t:'Mengunggah poster pukul 22.00 saat interaksi audiens sangat rendah',a:0,why:'Jam unggah yang tidak efektif perlu dihentikan.'},
+    {t:'Teks tanggal dan lokasi terlalu kecil sehingga banyak yang bertanya ulang',a:0,why:'Teks informasi yang sulit dibaca perlu dihentikan.'},
+    {t:'Memasang banner di area parkir belakang yang jarang dilihat orang',a:0,why:'Lokasi pemasangan yang tidak efektif perlu dihentikan.'},
+    {t:'Menambahkan QR code dan kode promo untuk melacak asal pendaftar',a:1,why:'Hal baru yang membuat hasil lebih terukur.'},
+    {t:'Membuat versi story atau video pendek untuk menjangkau lebih banyak orang',a:1,why:'Hal baru untuk memperluas jangkauan.'},
+    {t:'Membagikan formulir umpan balik singkat setelah acara',a:1,why:'Hal baru untuk mengumpulkan data kualitatif.'},
+    {t:'Gaya ilustrasi kartun dan palet cerah yang banyak dipuji audiens',a:2,why:'Sudah berhasil sehingga dipertahankan.'},
+    {t:'Penggunaan hashtag pameran yang mendorong banyak repost',a:2,why:'Sudah berhasil sehingga dilanjutkan.'}],['Stop','Start','Continue'])}},
+ {c:'C4',type:'Analisis Kasus',w:7,
+  p:'Poster pameran dibagikan ke 5.000 akun, tetapi pendaftar hanya 20 dari target 100. Banyak komentar memuji tampilan, namun banyak pula yang bertanya cara mendaftar. Kesimpulan analisis yang paling tepat adalah...',
+  ex:'Desain berhasil menarik perhatian, tetapi belum efektif mendorong tindakan karena informasi dan ajakan mendaftar kurang jelas. Hasil 20% dari target menunjukkan tujuan belum tercapai.',
+  b:function(b){return mc(b,['Dampaknya besar sehingga desain sudah efektif','Desain menarik perhatian, tetapi kurang efektif mendorong tindakan karena cara mendaftar kurang jelas','Desain gagal total karena ilustrasinya buruk','Penyebaran terlalu luas dan harus dikurangi'],1)}},
+ {c:'C5',type:'Evaluasi Praktik',w:10,
+  p:'Nilailah setiap praktik berikut. Benar berarti praktik itu tepat, Salah berarti kurang tepat.',
+  ex:'Periksa penjelasan pada tiap pernyataan di atas.',
+  b:function(b){return tf(b,[
+    {t:'Desain dinilai berhasil hanya karena jumlah like banyak, tanpa melihat target pada brief.',a:false,why:'Salah. Like belum tentu menunjukkan tercapainya tujuan. Bandingkan dengan target.'},
+    {t:'Mencatat hasil Stop-Start-Continue sebagai pelajaran untuk proyek berikutnya adalah praktik yang baik.',a:true,why:'Benar. Pelajaran yang dicatat membuat proyek berikutnya lebih baik.'},
+    {t:'Setelah klien menerima file akhir, file sumber boleh dihapus untuk menghemat ruang.',a:false,why:'Salah. File sumber diperlukan untuk revisi atau permintaan ulang di kemudian hari.'},
+    {t:'Menyimpan brief dan bukti persetujuan klien di arsip membantu bila terjadi perbedaan pendapat.',a:true,why:'Benar. Dokumen itu menjadi bukti kesepakatan.'}])}},
+ {c:'C6',type:'Merancang',w:12,
+  p:'Rancang rencana pasca produksi untuk poster "Pameran Karya DKV SMKN 1 Singkep". Pilih opsi yang paling tepat pada setiap bagian.',
+  ex:'Rencana yang baik: arsip terstruktur dengan backup, distribusi sesuai audiens, pengukuran berbasis target, analisis memakai data, dan pelajaran dicatat lewat SSC.',
+  b:function(b){return compose(b,[
+    {l:'Pengarsipan',o:['Folder bernomor berisi file sumber, aset, dan ekspor, bernama berversi, dengan backup 3-2-1','Semua file ditumpuk di Desktop','Hanya menyimpan JPG di HP']},
+    {l:'Distribusi',o:['Cetak 200 lembar untuk area sekolah dan unggah ke Instagram serta WhatsApp sesuai audiens remaja','Hanya ditempel di ruang guru','Dikirim ke semua orang tanpa memilih saluran']},
+    {l:'Pengukuran',o:['Target 100 pendaftar, memakai kode promo dan formulir umpan balik','Tidak perlu diukur','Menilai dari perasaan saja']},
+    {l:'Analisis',o:['Membandingkan hasil dengan target dan membaca umpan balik audiens','Menghitung like saja','Menunggu pendapat klien tanpa data']},
+    {l:'Tindak lanjut',o:['Menyusun Stop-Start-Continue dan mencatatnya sebagai pelajaran','Melupakan proyek dan lanjut ke proyek lain','Menyalahkan audiens']}])}}
+];
+
+var qi=0,results=[],checked=false,checkFn=null,quizStarted=false;
+function startQuiz(){quizStarted=true;qi=0;results=[];renderQ()}
+function renderQ(){
+  var q=quiz[qi],area=$('#quizArea'),B=BLOOM[q.c];
+  checked=false;
+  area.innerHTML='';
+  var top=el('div','qtop','<span>Soal '+(qi+1)+' dari '+quiz.length+'</span><span>'+q.w+' poin</span>');
+  var pb=el('div','prog qbar','<i style="width:'+(qi/quiz.length*100)+'%"></i>');
+  var hd=el('div','qhead','<span class="badge" style="background:'+B.c+'">'+q.c+' · '+B.n+'</span><span class="badge">'+q.type+'</span>');
+  var pr=el('div','qprompt',q.p);
+  var body=el('div','qbody');
+  var fb=el('div','fb');
+  var btn=el('button','btn main block','Periksa Jawaban');
+  [top,pb,hd,pr,body,fb,btn].forEach(function(x){area.appendChild(x)});
+  checkFn=q.b(body);
+  btn.onclick=function(){
+    if(!checked){
+      var f=checkFn();results[qi]=f;checked=true;
+      area.classList.add('locked');
+      fb.className='fb show '+(f===1?'good':f>0?'mid':'low');
+      fb.innerHTML='<b>'+(f===1?'✅ Tepat sekali!':f>0?'🟡 Sebagian benar ('+Math.round(f*100)+'%)':'❌ Belum tepat')+'</b>'+q.ex;
+      btn.textContent=qi===quiz.length-1?'Lihat Hasil 🏁':'Lanjut ›';
+      btn.className='btn alt block';
+      fb.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }else{
+      area.classList.remove('locked');
+      qi++;
+      if(qi>=quiz.length)showResult();else{renderQ();window.scrollTo(0,0)}
+    }
+  };
+}
+function showResult(){
+  var total=0,per={};
+  quiz.forEach(function(q,i){
+    var s=(results[i]||0)*q.w;total+=s;
+    per[q.c]=per[q.c]||{g:0,m:0};per[q.c].g+=s;per[q.c].m+=q.w;
+  });
+  total=Math.round(total);
+  var best=store.get('dkvpp_best',null);
+  if(best===null||total>best){store.set('dkvpp_best',total);best=total}
+  var msg=total>=85?'Luar biasa! Kamu menguasai materi pasca produksi desain grafis. 🎉':total>=70?'Bagus! Sedikit lagi, ulangi bagian yang masih keliru. 👍':total>=50?'Cukup. Baca ulang materi dan pakai kartu hafalan. 📚':'Jangan menyerah! Pelajari materi dulu, lalu coba lagi. 💪';
+  var area=$('#quizArea');area.innerHTML='';
+  var wrap=el('div','result');
+  wrap.appendChild(el('span','tag','Hasil Latihan'));
+  wrap.appendChild(el('div','score',total+'<small style="font-size:22px">/100</small>'));
+  wrap.appendChild(el('p','',msg));
+  wrap.appendChild(el('p','',''));
+  var card=el('div','card');card.appendChild(el('h3','','Capaian per Level Bloom'));
+  Object.keys(per).forEach(function(k){
+    var pct=Math.round(per[k].g/per[k].m*100);
+    card.appendChild(el('div','bl','<span class="badge" style="background:'+BLOOM[k].c+'">'+k+'</span><div class="prog"><i style="width:'+pct+'%"></i></div><span>'+pct+'%</span>'));
+  });
+  wrap.appendChild(card);
+  wrap.appendChild(el('p','','<b>Skor terbaikmu: '+best+'</b>'));
+  var again=el('button','btn main block','↺ Ulangi Latihan');
+  again.onclick=function(){startQuiz();window.scrollTo(0,0)};
+  var rev=el('button','btn block','📚 Baca Ulang Materi');rev.style.marginTop='12px';
+  rev.onclick=function(){go('definisi')};
+  wrap.appendChild(again);wrap.appendChild(rev);
+  area.appendChild(wrap);
+  window.scrollTo(0,0);
+}
+
+
+buildStepper();updateProgress();
+$$('.nav button')[0].classList.add('on');
+})();
+</script>
+</body>
+</html>
